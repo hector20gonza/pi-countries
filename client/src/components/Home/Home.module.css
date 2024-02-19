@@ -1,0 +1,44 @@
+.homeContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Centra los elementos horizontalmente */
+  align-items: flex-start; /* Alinea los elementos en la parte superior */
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan en múltiples líneas */
+  margin-top: 80px;
+}
+.countriesContainer {
+  height: 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: flex-start; /* Alinea los elementos en la parte superior */
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan en múltiples líneas */
+  overflow-y: visible;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  margin: 0 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination button:hover {
+  background-color: #0056b3;
+}
+
+.pagination span {
+  margin: 0 10px;
+  font-size: 16px;
+  color: #333;
+}

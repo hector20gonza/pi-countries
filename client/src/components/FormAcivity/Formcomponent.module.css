@@ -1,0 +1,103 @@
+.formContainer {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .inputContainer {
+    margin-bottom: 20px;
+  }
+  
+  .label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .inputField {
+    display: flex;
+    align-items: center;
+  }
+  
+  .input {
+    flex: 1;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  .select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    background-color: #fff;
+  }
+  
+  .submit {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .submit:hover {
+    background-color: #0056b3;
+  }
+  
+  .errorMessage {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  .selectedCountries {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .selectedCountry {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .countryFlag {
+    width: 24px; /* Ajusta el tamaño de la bandera según sea necesario */
+    height: auto; /* Para mantener la proporción */
+    margin-right: 5px;
+  }
+  
+  .removeButton {
+    background-color: transparent;
+    color: red;
+    border: none;
+    font-size: 14px; /* Ajusta el tamaño del botón según sea necesario */
+    cursor: pointer;
+  }
+  
+  .removeButton:hover {
+    color: darkred;
+  }  

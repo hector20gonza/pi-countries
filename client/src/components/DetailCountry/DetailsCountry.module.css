@@ -1,0 +1,211 @@
+.globalContainer {
+    height: 550px;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+  }
+  
+  .detailContainer {
+    height: 480px;
+    width: fit-content;
+    margin: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #63a08be7;
+    border-radius: 10px;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.582);
+    animation: fade-in 1s;
+  }
+  
+  .imageContainer {
+    height: 220px;
+    width: 380px;
+    margin-bottom: 40px;
+    position: relative;
+    border-radius: 10px;
+    animation: ease-in-flag 1.2s ease-in;
+    transition: border-radius 0.5s;
+  }
+  
+  .imageContainer:hover, .imageContainer:hover img {
+    border-radius: 8px 8px 8px 0px;
+  }
+  
+  .imageContainer img {
+    height: 220px;
+    width: 380px;
+    border-radius: 10px;
+    filter: drop-shadow(2px 2px 10px rgba(0, 0, 0, 0.39));
+    transition: border-radius 0.5s;
+  }
+  
+  .id {
+    width: 60px;
+    top: 150px;
+    left: 0px;
+    padding: 5px 10px;
+    position: absolute;
+    background-color: #80b8a5b7;
+    color: white;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-align: center;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.644);
+    border-radius: 0px 0px 8px 8px;
+    transition: top 0.5s, box-shadow 0.5s;
+  }
+  
+  .imageContainer:hover .id {
+    top: 202px;
+    box-shadow: 2px 2px 6px #0000009a;
+  }
+  
+  .name {
+    height: 40px;
+    width: 360px;
+    position: absolute;
+    bottom: -10px;
+    margin: 0px;
+    padding: 10px;
+    opacity: 0;
+    color: rgb(255, 255, 255);
+    border-radius: 10px 0px 0px 10px;
+    font-weight: 600;
+    font-size: xx-large;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.726);
+    text-align: center;
+    filter: drop-shadow(0px 0px 6px rgba(0, 0, 0, 0.719));
+    transition: bottom 0.5s, opacity 0.5s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .imageContainer:hover .name {
+    bottom: 0px;
+    opacity: 1;
+  }
+  
+  .textContainer {
+    width: 380px;
+    height: 200px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #80b8a5b7;
+    border-radius: 10px;
+    animation: ease-in-text 1.2s ease-in;
+  }
+  
+  .text {
+    padding: 5px;
+    margin: 2px 5px;
+    color: #fff;
+    font-size: larger;
+    font-weight: 600;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.753);
+  }
+  
+  .text i {
+    width: 30px;
+    margin-right: 6px;
+    color: rgb(101, 211, 211);
+    text-align: center;
+  }
+  
+  .personSymbol {
+    font-size: medium;
+  }
+  
+  @keyframes ease-in-text {
+    0% {
+      bottom: -100px;
+      opacity: 0;
+    }
+    40% {
+      bottom: -100px;
+      opacity: 0;
+    }
+    100% {
+      bottom: 0px;
+      opacity: 1;
+    }
+  }
+  
+  @keyframes ease-in-flag {
+    0% {
+      top: -100px;
+      opacity: 0;
+    }
+    40% {
+      top: -100px;
+      opacity: 0;
+    }
+    100% {
+      top: 0px;
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fade-in {
+    from {
+      background-color: transparent;
+      box-shadow: 4px 4px 4px transparent;
+    }
+    top {
+      background-color: #63a08be7;
+      box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.582);
+    }
+  }
+  .activityCard {
+    background-color: #80b8a5b7; /* Mismo color de fondo que el contenedor principal */
+    border: none; /* Eliminar el borde para un aspecto más limpio */
+    border-radius: 10px; /* Misma esquina redondeada que el contenedor principal */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Misma sombra que el contenedor principal */
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .activityCard h3 {
+    margin-bottom: 12px; /* Aumentar el espacio entre el título y el contenido */
+    font-size: 20px; /* Tamaño de fuente ligeramente más grande para el título */
+    font-weight: 600; /* Aumentar la negrita para el título */
+  }
+  
+  .activityCard p {
+    margin-bottom: 8px; /* Espacio ligeramente mayor entre los párrafos */
+    font-size: 16px; /* Tamaño de fuente un poco más grande para el contenido */
+  }
+  
+  .activitiesContainer {
+    margin-top: 32px; /* Mayor espacio en la parte superior para separar las tarjetas */
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .actionButton {
+    padding: 8px 16px;
+    margin-left: 8px;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .actionButton:hover {
+    background-color: #d32f2f;
+  }
+  
+  .fa-trash-alt {
+    margin-right: 4px;
+  }

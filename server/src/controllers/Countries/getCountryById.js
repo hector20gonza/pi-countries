@@ -3,14 +3,15 @@ const getCountrybyIdhandlers = require("../../Handlers/Countries/getCountyById")
 async function getCountryId(req, res) {
   try {
     const { id } = req.params;
-
+    const {email} = req.query;
+   console.log(email);
     if (!id) {
       return res
         .status(400)
         .json({ error: "Se requiere un ID de país válido" });
     }
 
-    const country = await getCountrybyIdhandlers(id);
+    const country = await getCountrybyIdhandlers(id,email);
 
     if (!country) {
       return res.status(404).json({

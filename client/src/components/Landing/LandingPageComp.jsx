@@ -1,23 +1,23 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import RegisterComp from "../Register/RegisterComp";
 import LoginComp from "../Login/LoginComp";
 import axios from "axios";
-import { setEmail, setAccess, setCountries } from "../../redux/actions";
-//import Loading from "../Loading/Loading";
+import { setEmail, setAccess, getCountries } from "../../redux/Actions";
 import styles from "./landingPage.module.css";
-import useLocalStorage from "../../utils/useLocalStorage";
 
 const LandingPageComp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [activeForm, setActiveForm] = useState(""); // Estado para controlar el formulario activo
+ const [errormesa, setErromesa]= useState("");
+ const [errormesa1, setErromesa1]= useState("");
 
  
-
-
-
-
+  const handleSetActiveForm = (formName) => {
+    setActiveForm(formName);
+  };
 
   const register = async ({ email, password }) => {
     try {
@@ -27,12 +27,11 @@ const LandingPageComp = () => {
       });
       dispatch(setEmail(email));
       dispatch(setAccess(true));
-      dispatch(setCountries("", email));
+      dispatch(getCountries("", email));
       navigate("/home");
-     
     } catch (error) {
-      alert(error);
-      console.error(error);
+      setErromesa1(error.response.data.error)
+      
     }
   };
 
@@ -42,35 +41,37 @@ const LandingPageComp = () => {
         `http://localhost:3001/users/login/?email=${email}&password=${password}`
       );
       dispatch(setEmail(email));
-     
       dispatch(setAccess(true));
-      dispatch(setCountries("", email));
+      dispatch(getCountries("", email));
       navigate("/home");
-    
     } catch (error) {
-      alert(error);
-      console.error(error);
+      setErromesa(error.response.data.error);
+     
+      
     }
   };
-
-  // Función para simular carga de datos o proceso
-  const simulateLoading = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  };
-
+console.log(errormesa);
   return (
     <div className={styles.landingContainer}>
       <h1>Welcome to the Countries</h1>
       <p>Please register or log in to access our services.</p>
       <div className={styles.formsContainer}>
-        <RegisterComp register={register}/>
-        <LoginComp login={login}/>
+        {/* Formulario de Registro */}
+        {activeForm !== "register" && (
+          <button onClick={() => handleSetActiveForm("register")}>Register</button>
+        )}
+        {activeForm === "register" && (
+          <RegisterComp register={register} setActiveForm={setActiveForm} errormesa1={errormesa1} />
+        )}
+
+        {/* Formulario de Inicio de Sesión */}
+        {activeForm !== "login" && (
+          <button onClick={() => handleSetActiveForm("login")}>Login</button>
+        )}
+        {activeForm === "login" && (
+          <LoginComp login={login} setActiveForm={setActiveForm} errormesa={errormesa} />
+        )}
       </div>
-    
-      
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./SearchBar.module.css";
-import { setCountries } from "../../redux/actions";
+import { getCountryName } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -17,7 +17,7 @@ const SearchBar = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await dispatch(setCountries(searchTerm, email));
+      await dispatch(getCountryName(searchTerm, email));
       navigate("/home");
     } catch (error) {
       alert(error.response.data.error);

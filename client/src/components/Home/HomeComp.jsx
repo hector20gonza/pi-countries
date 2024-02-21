@@ -1,15 +1,13 @@
 import Country from "../Country/Country";
 import { useState ,useEffect} from "react";
-import { useDispatch} from 'react-redux';
-import {resetFilteredCountries } from '../../redux/actions';
 import { useSelector } from "react-redux";
 import styles from '../Home/Home.module.css'
 const itemsPerPage = 15;
 
 const HomeComp = () => {
-  const dispatch=useDispatch();
+  
   const filteredCountries = useSelector((state) => state.filteredCountries);
-  console.log(filteredCountries)
+ 
   const [currentPage, setCurrentPage] = useState(1);
 
   // Calcula los índices de inicio y fin para la página actual

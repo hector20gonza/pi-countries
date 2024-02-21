@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { setCountries } from "../../redux/actions";
+import { getCountries } from "../../redux/actions";
 import styles from "../../components/FormAcivity/Formcomponent.module.css";
+import { validateForm } from "../../validations/validateLogin"; // Importa la función de validación
 
 const FormComponent = () => {
   const email = useSelector((state) => state.email);
@@ -14,8 +15,10 @@ const FormComponent = () => {
     difficulty: 1,
     duration: "",
     season: "Verano",
-    countries: [], // Inicialmente establecido como un array vacío para almacenar múltiples países seleccionados
+    countries: [],
   });
+
+  const [errors, setErrors] = useState({}); // Estado para almacenar errores de validación
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -39,6 +42,12 @@ const FormComponent = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const validationErrors = validateForm(activityData); // Validar el formulario
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors); // Actualizar el estado de errores si hay errores
+      return; // Detener el envío del formulario si hay errores
+    }
+
     try {
       if (!email) {
         throw new Error("You need an account to create activities!");
@@ -55,9 +64,9 @@ const FormComponent = () => {
         difficulty: 1,
         duration: "",
         season: "Verano",
-        countries: [], // Resetear a un array vacío después de enviar la actividad
+        countries: [],
       });
-      dispatch(setCountries("", email));
+      dispatch(getCountries("", email));
     } catch (error) {
       alert(error.response?.data?.error || error.message);
       console.error(error);
@@ -82,6 +91,7 @@ const FormComponent = () => {
               value={activityData.name}
               onChange={handleChange}
             />
+            {errors.name && <p className={styles.error}>{errors.name}</p>}
           </div>
         </div>
 
@@ -99,6 +109,7 @@ const FormComponent = () => {
               value={activityData.difficulty}
               onChange={handleChange}
             />
+            {errors.difficulty && <p className={styles.error}>{errors.difficulty}</p>}
           </div>
         </div>
 
@@ -115,6 +126,7 @@ const FormComponent = () => {
               value={activityData.duration}
               onChange={handleChange}
             />
+            {errors.duration && <p className={styles.error}>{errors.duration}</p>}
           </div>
         </div>
 
@@ -127,12 +139,13 @@ const FormComponent = () => {
             name="season"
             value={activityData.season}
             onChange={handleChange}
-          >
+          > 
             <option value="Verano">Verano</option>
             <option value="Invierno">Invierno</option>
-            <option value="Summer">Summer</option>
+            <option value="Otoño">Otoño</option>
             <option value="Primavera">Primavera</option>
           </select>
+          {errors.season && <p className={styles.error}>{errors.season}</p>}
         </div>
 
         <div className={styles.inputContainer}>
@@ -161,6 +174,7 @@ const FormComponent = () => {
               </option>
             ))}
           </select>
+          {errors.countries && <p className={styles.error}>{errors.countries}</p>}
         </div>
 
         <button type="submit" className={styles.submit}>

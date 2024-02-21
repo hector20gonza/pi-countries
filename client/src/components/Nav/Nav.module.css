@@ -1,63 +1,61 @@
 .navBar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    padding: 1rem;
-    color: white;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 1rem;
+  color: white;
+}
+
+.navBrand a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.menu {
+  display: flex;
   
-  .navBrand a {
-    text-decoration: none;
-    color: white;
-    font-size: 1.5rem;
-  }
-  
-  .menu {
-    display: flex;
-  }
-  
-  .menu a {
-    text-decoration: none;
-    color: white;
-    margin-right: 1rem;
-  }
-  
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .dropbtn {
-    background-color: inherit;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  
-  .dropdownContent {
-    display: none;
-    position: absolute;
-    background-color: #333;
-    min-width: 160px;
-    z-index: 1;
-  }
-  
-  .dropdownContent a {
-    padding: 0.5rem;
-    display: block;
-  }
-  
-  .dropdownContent a:hover {
-    background-color: #555;
-  }
-  
-  .dropdown:hover .dropdownContent {
-    display: block;
-  }
-  
-  .fa {
-    margin-left: 0.5rem;
-  }
-  
+}
+
+.menu > div {
+  display: block; /* Cambiar de inline-block a block para que los submenús se muestren uno debajo del otro */
+  position: relative;
+}
+
+.menu > div > button {
+  background-color: inherit;
+  color: white;
+  border: none !important;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-right: 1rem;
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  min-width: 160px;
+  z-index: 1;
+}
+
+.dropdownContent button {
+  padding: 0.5rem;
+  display: block;
+}
+
+.dropdownContent button:hover {
+  background-color: #555;
+}
+
+.dropdown:hover .dropdownContent {
+  display: block;
+}
+
+.fa {
+  margin-left: 0.5rem;
+}
+.dropdownContent button {
+  border: none;
+}

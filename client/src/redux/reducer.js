@@ -1,62 +1,74 @@
 import {
-  SET_COUNTRIES,
+  GET_COUNTRIES,
   FILTER_COUNTRIES,
   ORDER_COUNTRIES,
   SET_ACCESS,
   SET_EMAIL,
   DELETE_ACTIVITY,
   UPDATE_ACTIVITY,
-  RESET_FILTERED_COUNTRIES,
+  FILTER_ACTIVITIES,
+  GET_COUNTRINAME,
+  GET_COUNTRY_ID,
+  GET_ACT_USER,
 } from "../redux/Types";
 
 const initialState = {
   allCountries: [],
   filteredCountries: [],
-
+  filteredActivities: [],
+  countriesDetail: [],
+  ActUser: [],
+  email: [],
   access: false,
-};
-
-const filterByContinent = (countries, filterInfo) => {
-  if (!filterInfo) return countries;
-  return countries.filter((country) => country.region === filterInfo);
-};
-
-const filterByActivity = (countries, filterInfo) => {
-  const { difficulty, season } = filterInfo;
-  if (!difficulty && !season) return countries;
-  return countries.filter((country) =>
-    country.Activities?.some(
-      (activity) =>
-        (!difficulty || difficulty === activity.difficulty) &&
-        (!season || season === activity.season)
-    )
-  );
-};
-
-const filterFunctions = {
-  continent: filterByContinent,
-  activity: filterByActivity,
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case DELETE_ACTIVITY:
-      // Filtra las actividades del país para eliminar la actividad eliminada
-      const updatedCountries = state.allCountries.map((country) => {
-        if (country.id === payload.countryId) {
-          return {
-            ...country,
-            Activities: country.Activities.filter(
-              (activity) => activity.id !== payload.activityId
-            ),
-          };
-        }
-        return country;
-      });
+    case FILTER_ACTIVITIES:
+  const { difficulty, season } = payload;
+  // Si no hay filtros, mostrar todas las actividades del usuario
+  if (!difficulty && !season) {
+    return state;
+  }
+
+  // Filtrar actividades según los criterios proporcionados
+  const filteredActivities = state.ActUser.filter((activity) => {
+    // Filtrar por dificultad si se proporciona
+    if (difficulty && activity.activity.difficulty !== parseInt(difficulty)) {
+      return false;
+    }
+    // Filtrar por temporada si se proporciona
+    if (season && activity.activity.season !== season) {
+      return false;
+    }
+    return true;
+  });
+
+  return {
+    ...state,
+    ActUser: filteredActivities, // Actualizamos el estado con las actividades filtradas
+  };
+
+
+    case GET_ACT_USER:
+      console.log(payload);
       return {
         ...state,
-        allCountries: updatedCountries,
-        filteredCountries: updatedCountries,
+        ActUser: payload,
+      };
+
+    case DELETE_ACTIVITY:
+      const { activityId, countryId } = payload;
+      const updatedCountriesDetail = {
+        ...state.countriesDetail,
+        Activities: state.countriesDetail.Activities.filter(
+          (activity) => activity.id !== activityId
+        ),
+      };
+
+      return {
+        ...state,
+        countriesDetail: updatedCountriesDetail,
       };
 
     //--------------
@@ -87,23 +99,36 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
     case SET_ACCESS:
       return { ...state, access: payload };
-    case RESET_FILTERED_COUNTRIES:
+
+    case GET_COUNTRY_ID:
       return {
         ...state,
-        filteredCountries: state.allCountries,
+        countriesDetail: payload,
       };
-    case SET_COUNTRIES:
-      return { ...state, allCountries:payload,  filteredCountries: payload};
-     
-    case FILTER_COUNTRIES:
-      console.log("FILTER_COUNTRIES payload:", payload);
-      const { filterType, filterInfo } = payload;
-      const filterFunction =
-        filterFunctions[filterType] || ((countries) => countries);
-       
+    case GET_COUNTRINAME:
       return {
         ...state,
-        filteredCountries: filterFunction(state.allCountries, filterInfo),
+        filteredCountries: payload,
+      };
+
+    case GET_COUNTRIES:
+      return {
+        ...state,
+        allCountries: payload,
+        filteredCountries: payload,
+      };
+
+    case FILTER_COUNTRIES:
+      const { continent } = payload;
+
+      const countries = state.allCountries;
+      const countriesFilteredByContinent =
+        continent === "All"
+          ? countries
+          : countries.filter((country) => country.region === continent);
+      return {
+        ...state,
+        filteredCountries: countriesFilteredByContinent,
       };
 
     case ORDER_COUNTRIES:

@@ -1,52 +1,67 @@
 import styles from "../DetailCountry/DetailsCountry.module.css";
-import {deleteActivity} from "../../redux/actions"
+import {deleteActivity,getCountryById} from "../../redux/actions"
 import { useSelector ,useDispatch} from "react-redux";
 import { useParams } from 'react-router-dom';
-
+import { useEffect } from "react";
 const DetailCountry = () => {
   const dispatch = useDispatch();
-    const filteredCountries = useSelector((state) => state.filteredCountries);
+  const country = useSelector((state) => state.countriesDetail);
     const email = useSelector((state)=>state.email);
-    const { id } = useParams();
-const countryById = filteredCountries.find(country => country.id === id);
+  
+     const { id } = useParams();
+     console.log(email)
+     console.log(country)
+ const {
+    name,
+    image,
+    region,
+    capitalCity,
+    subregion,
+    area,
+    population,
+    Activities,
+  } = country;
+    useEffect(() => {
+    dispatch(getCountryById(id,email));
+   }, [dispatch, id]);
 
 
-  console.log('País encontrado:', countryById);
+ 
   // Aquí puedes utilizar countryById de manera segura, ya que se ha encontrado el país correspondiente al id.
-console.log(countryById.Activities);
+console.log(Activities);
 const handleDelete = (idactivity) => {
-console.log(countryById.id, idactivity,email);
-  dispatch(deleteActivity(countryById.id, idactivity,email));
+console.log(id, idactivity,email);
+  dispatch(deleteActivity(id, idactivity,email));
 };
 
     return (
         <div className={styles.globalContainer}>
         <div className={styles.detailContainer}>
           <div className={styles.imageContainer}>
-            <p className={styles.id}>{countryById.id}</p>
-            <img className={styles.flag} src={countryById.image} alt={countryById.name} />
-            <p className={styles.name}>{countryById.name}</p>
+            <p className={styles.id}>{id}</p>
+            <img className={styles.flag} src={image} alt={name} />
+            <p className={styles.name}>{name}</p>
           </div>
           <div className={styles.textContainer}>
             <p className={styles.text}>
               <i className="fa-solid fa-earth-americas" />
-              {`Continent: ${countryById.region}`}
+              {`Continent: ${region}`}
             </p>
             <p className={styles.text}>
               <i className="fa-solid fa-map-pin" />
-              {`Region: ${countryById.subregion}`}
+              {`Region: ${subregion}`}
             </p>
             <p className={styles.text}>
               <i className="fa-solid fa-city" />
-              {`Capital City: ${countryById.capitalCity}`}
+              {`Capital City: ${capitalCity}`}
             </p>
             <p className={styles.text}>
               <i className="fa-solid fa-sign-hanging" />
-              {`Area: ${countryById.area}m²`}
+              {`Area: ${area}m²`}
             </p>
             <p className={styles.text}>
               <i className="fa-solid fa-user-group" />
-              {`Population: ${countryById.population} `}{" "}
+              {`Population: ${population} `}{" "}
             </p>
           </div>
         </div>
@@ -54,7 +69,7 @@ console.log(countryById.id, idactivity,email);
 {/* Renderizar actividades */}
 <div className={styles.activitiesContainer}>
         <h2>Activities</h2>
-        {countryById.Activities.map((activity) => (
+        {Activities && Activities.map((activity) => (
           <div key={activity.id} className={styles.activityCard}>
           
             <h3>{activity.name}</h3>
